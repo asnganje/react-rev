@@ -1,51 +1,42 @@
-import 'bulma/css/bulma.css'
-import ProfileCard from "./ProfileCard";
-import React from "react";
-import AlexaImage from './images/alexa.png'
-import CortanaImage from './images/cortana.png'
-import SiriImage from './images/siri.png'
+import './App.css'
+import { useState } from "react"
+import AnimalShow from "./AnimalShow"
 
+function getRandomAnimal() {
+    const animals = ['bird', 'cat', 'cow', 'dog', 'gater', 'horse']
+    return animals[Math.trunc(Math.random()*animals.length)]
+}
 export default function App() {
-    return (
-        <div>
-            <section className='hero is-primary'>
-                <div className='hero-body'>
-                    <p className='title'>
-                    Personal Digital Assistance
-                    </p>
-                </div>
-            </section>
+    // function makeArray() {
+    //     return [1, 10, 32, 40]
+    // }
 
-        <div className='container'>
-            <section className='section'>
-                <div className='columns'>
-                    <div className='column is-4'>
-                    <ProfileCard 
-                    title = "Alexa" 
-                    handle = "@alexa99" 
-                    image={AlexaImage}
-                    description = "Alexa was created by Amazon"
-                    />
-                    </div>
-                    <div className='column is-4'>
-                    <ProfileCard 
-                    title = "Cortana" 
-                    handle = "@Cortana32" 
-                    image={CortanaImage}
-                    description = "Alexa was created by Microsoft"
-                    />
-                    </div>
-                    <div className='column is-4'>
-                    <ProfileCard 
-                    title = "Siri" 
-                    handle = "@siri01" 
-                    image={SiriImage}
-                    description = "Alexa was created by Apple and is being fazed out"
-                    />
-                    </div>
-                </div>
-            </section>
+    // // const myArray = makeArray()
+    // // const firstElement = myArray[0]
+    // // const secondElement = myArray[1]
+    // const [firstElement, secondElement] = makeArray()
+    // console.log(firstElement, secondElement)
+    
+    // const [count, setCount] = useState(0);
+
+    // const handleMove = () => {
+    //     setCount(count+1);
+    // }
+    const [animals, setAnimals] = useState([])
+    const handleClick = () => {
+        setAnimals([...animals, getRandomAnimal()])
+    }
+
+    const renderedAnimals = animals.map((animal, index) => {
+        return <AnimalShow type={animal} key={index}/>
+    });
+
+    return(
+        
+        <div className='app'>
+            <button onClick={handleClick}>Add Animal</button>
+            <div className='animal-list'>{renderedAnimals}</div>
         </div>
-        </div>
+        
     )
 }
